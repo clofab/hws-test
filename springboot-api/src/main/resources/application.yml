@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth-api
+
+  datasource:
+    url: jdbc:h2:mem:authdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop        # use 'validate' or 'none' in production
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true                # http://localhost:8080/h2-console  (dev only)
+      path: /h2-console
+
+# ── JWT ──────────────────────────────────────────────────────────────────────
+app:
+  jwt:
+    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970   # 256-bit hex — change in prod!
+    expiration-ms: 900000        # 15 minutes
+    refresh-expiration-ms: 604800000  # 7 days
+  cors:
+    allowed-origins:
+      - http://localhost:8081     # Expo Web dev server
+      - http://10.0.2.2:8081     # Android emulator
+      - exp://192.168.1.x:8081   # Expo Go — update IP
+
+logging:
+  level:
+    com.app: DEBUG
+    org.springframework.security: WARN
