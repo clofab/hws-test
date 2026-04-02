@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#0A0A0F"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.authapp"
@@ -31,7 +33,8 @@
         {
           "fonts": []
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "scheme": "authapp",
     "extra": {
