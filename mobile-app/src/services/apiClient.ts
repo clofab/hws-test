@@ -1,10 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 
 // ─── Configuration ───────────────────────────────────────────────────────────
-const BASE_URL = "http://10.0.2.2:8080/api"; // Android emulator → localhost
-// const BASE_URL = "http://localhost:8080/api"; // iOS simulator
-// const BASE_URL = "https://your-production-api.com/api"; // Production
+const BASE_URL = "http://127.0.0.1:8080/api"; 
 
 const TOKEN_KEY = "auth_token";
 const REFRESH_TOKEN_KEY = "refresh_token";
@@ -12,20 +11,20 @@ const REFRESH_TOKEN_KEY = "refresh_token";
 // ─── Token Helpers ────────────────────────────────────────────────────────────
 export const tokenStorage = {
   getToken: async (): Promise<string | null> => {
-    return await SecureStore.getItemAsync(TOKEN_KEY);
+    return AsyncStorage.getItem(TOKEN_KEY);  
   },
   setToken: async (token: string): Promise<void> => {
-    await SecureStore.setItemAsync(TOKEN_KEY, token);
+    await AsyncStorage.setItem(TOKEN_KEY, token);
   },
   getRefreshToken: async (): Promise<string | null> => {
-    return await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
+    return AsyncStorage.getItem(REFRESH_TOKEN_KEY);  
   },
   setRefreshToken: async (token: string): Promise<void> => {
-    await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, token);
+    await AsyncStorage.setItem(REFRESH_TOKEN_KEY, token);
   },
   clearTokens: async (): Promise<void> => {
-    await SecureStore.deleteItemAsync(TOKEN_KEY);
-    await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
+    await AsyncStorage.removeItem(TOKEN_KEY);
+    await AsyncStorage.removeItem(REFRESH_TOKEN_KEY);
   },
 };
 

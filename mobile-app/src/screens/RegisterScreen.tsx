@@ -50,6 +50,13 @@ export default function RegisterScreen() {
     formState: { errors },
   } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
+	defaultValues: {          
+	    firstName: '',
+	    lastName: '',
+	    email: '',
+	    password: '',
+	    confirmPassword: '',
+	  },
   });
 
   useEffect(() => {

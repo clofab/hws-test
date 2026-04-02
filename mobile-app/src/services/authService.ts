@@ -1,4 +1,4 @@
-import apiClient, { tokenStorage } from "./apiClient";
+import apiClient, { tokenStorage } from ".Client";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export interface LoginRequest {
@@ -43,26 +43,37 @@ export const authService = {
    * Login with email + password
    */
   login: async (credentials: LoginRequest): Promise<AuthResponse> => {
-    const { data } = await apiClient.post<AuthResponse>(
-      "/auth/login",
-      credentials
-    );
-    await tokenStorage.setToken(data.accessToken);
-    await tokenStorage.setRefreshToken(data.refreshToken);
-    return data;
+	try {
+	    const { data } = await apiClient.post<AuthResponse>(
+	      "/auth/login",
+	      credentials
+	    );
+	    await tokenStorage.setToken(data.accessToken);
+	    await tokenStorage.setRefreshToken(data.refreshToken);
+	    return data;
+	} catch (err: any) {
+	  console.log("status", err.response?.status);
+	  console.log("error data", JSON.stringify(err.response?.data));  // 👈
+	  console.log("message", err.message);
+	  throw err;
+	}
   },
 
   /**
    * Register new account
    */
   register: async (payload: RegisterRequest): Promise<AuthResponse> => {
-    const { data } = await apiClient.post<AuthResponse>(
-      "/auth/register",
-      payload
-    );
-    await tokenStorage.setToken(data.accessToken);
-    await tokenStorage.setRefreshToken(data.refreshToken);
-    return data;
+	try {
+	    const { data } = await apiClient.post<AuthResponse>("/auth/register", payload);
+	    await tokenStorage.setToken(data.accessToken);
+	    await tokenStorage.setRefreshToken(data.refreshToken);
+	    return data;
+	  } catch (err: any) {
+	    console.log("status", err.response?.status);
+	    console.log("error data", JSON.stringify(err.response?.data));  // 👈
+	    console.log("message", err.message);
+	    throw err;
+	  }
   },
 
   /**
@@ -80,8 +91,15 @@ export const authService = {
    * Get current authenticated user profile
    */
   getProfile: async (): Promise<User> => {
-    const { data } = await apiClient.get<User>("/users/me");
-    return data;
+	try {
+	    const { data } = await apiClient.get<User>("/users/me");
+	    return data;
+	} catch (err: any) {
+	  console.log("status", err.response?.status);
+	  console.log("error data", JSON.stringify(err.response?.data));  // 👈
+	  console.log("message", err.message);
+	  throw err;
+	}
   },
 
   /**
@@ -90,8 +108,15 @@ export const authService = {
   updateProfile: async (
     payload: Partial<Pick<User, "firstName" | "lastName">>
   ): Promise<User> => {
-    const { data } = await apiClient.put<User>("/users/me", payload);
-    return data;
+	try {
+	    const { data } = await apiClient.put<User>("/users/me", payload);
+	    return data;
+	} catch (err: any) {
+	  console.log("status", err.response?.status);
+	  console.log("error data", JSON.stringify(err.response?.data));  // 👈
+	  console.log("message", err.message);
+	  throw err;
+	}
   },
 
   /**
