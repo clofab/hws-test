@@ -34,10 +34,8 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
-
-    @Value("${app.cors.allowed-origins}")
-    private List<String> allowedOrigins;
-
+    private final CorsProperties corsProperties;
+    
     // ── Filter Chain ───────────────────────────────────────────────────────────
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -69,17 +67,17 @@ public class SecurityConfig {
     // ── CORS ───────────────────────────────────────────────────────────────────
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(allowedOrigins);
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With"));
-        config.setExposedHeaders(List.of("Authorization"));
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
+    	 CorsConfiguration config = new CorsConfiguration();
+         config.setAllowedOrigins(corsProperties.getAllowedOrigins());
+         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With"));
+         config.setExposedHeaders(List.of("Authorization"));
+         config.setAllowCredentials(true);
+         config.setMaxAge(3600L);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
+         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+         source.registerCorsConfiguration("/**", config);
+         return source;
     }
 
     // ── Auth Provider ──────────────────────────────────────────────────────────

@@ -10,7 +10,7 @@ import java.time.Instant;
 
 public class AuthDto {
 
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class LoginRequest {
         @NotBlank(message = "L'email est requis")
         @Email(message = "Format d'email invalide")
@@ -21,7 +21,7 @@ public class AuthDto {
         private String password;
     }
 
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class RegisterRequest {
         @NotBlank(message = "Le prénom est requis")
         @Size(min = 2, max = 60)
@@ -42,14 +42,14 @@ public class AuthDto {
         private String password;
     }
 
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class RefreshRequest {
         @NotBlank
         private String refreshToken;
     }
 
     // ─── Auth Response ────────────────────────────────────────────────────────
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class AuthResponse {
         private String accessToken;
         private String refreshToken;
@@ -60,7 +60,7 @@ public class AuthDto {
     }
 
     // ─── User Response ────────────────────────────────────────────────────────
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class UserResponse {
         private Long id;
         private String firstName;
@@ -84,7 +84,7 @@ public class AuthDto {
     }
 
     // ─── Update Profile Request ───────────────────────────────────────────────
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class UpdateProfileRequest {
         @Size(min = 2, max = 60)
         private String firstName;
@@ -94,7 +94,7 @@ public class AuthDto {
     }
 
     // ─── Error Response ───────────────────────────────────────────────────────
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+    @Getter @Setter @NoArgsConstructor @AllArgsConstructor(access = AccessLevel.PRIVATE)  @Builder
     public static class ErrorResponse {
         private int status;
         private String message;

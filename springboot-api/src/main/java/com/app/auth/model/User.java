@@ -11,10 +11,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "users",
-       uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-@Getter @Setter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Table(name = "users",  uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -52,6 +54,7 @@ public class User implements UserDetails {
     }
 
     @Override public String getUsername()              { return email; }
+    @Override public String getPassword()              { return password; }
     @Override public boolean isAccountNonExpired()     { return true; }
     @Override public boolean isAccountNonLocked()      { return true; }
     @Override public boolean isCredentialsNonExpired() { return true; }
